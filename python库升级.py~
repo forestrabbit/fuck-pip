@@ -23,7 +23,7 @@ def parse(string):
 print('Begin to upgrade %s libraries with pip'%len(l))
 for i in range(len(l)):
     l[i] = parse(l[i])[0]
-    print(str(i + 1) + ': ', end = ' ', flush = True)
+    print(str(i) + ': ', end = ' ', flush = True)
     system("pip install --upgrade " + l[i])
 
 input('press enter key to continue...')
