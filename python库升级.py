@@ -1,0 +1,29 @@
+import subprocess
+from os import system
+
+p = subprocess.Popen(['pip', 'list'], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+output, err = p.communicate()
+l = (output.decode()).split('           ')
+ans = ''
+for x in l:
+    ans += x
+l = ans.split('\r\n')[3:len(l)]
+
+def parse(string):
+    data0 = ''
+    data1 = ''
+    status = 0
+    for x in string:
+        if status == 0:
+            if x != ' ':
+                data0 += x
+            else:
+                status = 1
+        else:
+            if x != ' ':
+                data1 += x
+    return data0, data1
+
+for i in range(len(l)):
+    l[i] = parse(l[i])[0]
+    system("pip install --upgrade " + l[i])
